@@ -29,7 +29,7 @@ export async function getClient(): Promise<MongoClient> {
 
 export async function getDb(dbName?: string): Promise<Db> {
   const client = await getClient();
-  const name = dbName || process.env.MONGODB_DB || extractDbNameFromUri(uri) || "test";
+  const name = dbName || process.env.MONGODB_DB || (uri ? extractDbNameFromUri(uri) : null) || "test";
   return client.db(name);
 }
 
